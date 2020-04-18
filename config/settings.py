@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+
+# django-wiki user login handling with reverse_lazy
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,13 +33,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+WIKI_APPS = [
     "django.contrib.sites.apps.SitesConfig",
     "django.contrib.humanize.apps.HumanizeConfig",
     "django_nyt.apps.DjangoNytConfig",
@@ -51,6 +56,11 @@ INSTALLED_APPS = [
     "wiki.plugins.macros.apps.MacrosConfig",
 ]
 
+# Letting Django know installed thrid party apps
+THIRD_PARTY_APPS = []
+
+INSTALLED_APPS = DJANGO_APPS + WIKI_APPS
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -63,6 +73,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
+# Using templates from Django wiki
+# https://django-wiki.readthedocs.io/en/latest/installation.html
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -116,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
@@ -140,6 +152,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # now, changing the link to image as http://127.0.0.1:8000/media/photoname.png
 MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
 
+# django-wiki configuration arguments
+# https://django-wiki.readthedocs.io/en/latest/installation.html
 SITE_ID = 1
 WIKI_ACCOUNT_HANDLING = True
 WIKI_ACCOUNT_SIGNUP_ALLOWED = True
